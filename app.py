@@ -157,7 +157,8 @@ def create_feature_inputs():
     inputs['midfield'] = 1 if position_context == 'Midfield' else 0
     inputs['back_marker'] = 1 if position_context == 'Back Marker' else 0
     
-    return inputs
+    # Return inputs and additional variables for insights
+    return inputs, circuit_difficulty_input, season_progress_input, selected_era
 
 # ========================================
 # MAIN APP LAYOUT
