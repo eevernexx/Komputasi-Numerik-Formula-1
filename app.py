@@ -182,8 +182,50 @@ if model is not None:
                 time.sleep(1)  # Dramatic effect
                 
                 try:
+                    # DEBUG: Check what we actually got
+                    st.write(f"🔍 DEBUG - user_inputs type: {type(user_inputs)}")
+                    st.write(f"🔍 DEBUG - user_inputs content: {user_inputs}")
+                    
+                    # FORCE user_inputs to be a dictionary if it's a tuple
+                    if isinstance(user_inputs, tuple):
+                        st.error("❌ user_inputs is a tuple! Converting to dict...")
+                        # Create a simple dictionary with basic features
+                        user_inputs_dict = {
+                            'year': 2023,
+                            'round': 10,
+                            'lap': 25,
+                            'driver_age': 28,
+                            'driver_experience': 5,
+                            'circuit_difficulty': (circuit_difficulty_input - 1) / 99,
+                            'circuit_alt': 500,
+                            'constructor_avg_points': 10.0,
+                            'position': 8,
+                            'season_progress': season_progress_input / 100,
+                            'f1_era_Hybrid': 1,
+                            'f1_era_Classic': 0,
+                            'f1_era_Turbo': 0,
+                            'f1_era_Refuel': 0,
+                            'f1_era_V8': 0,
+                            'nationality_British': 1,
+                            'nationality_German': 0,
+                            'nationality_Italian': 0,
+                            'nationality_French': 0,
+                            'nationality_Spanish': 0,
+                            'nationality_Other': 0,
+                            'early_race': 0,
+                            'mid_race': 1,
+                            'late_race': 0,
+                            'front_runner': 0,
+                            'midfield': 1,
+                            'back_marker': 0
+                        }
+                    else:
+                        user_inputs_dict = user_inputs
+                    
+                    st.write(f"✅ Using inputs: {type(user_inputs_dict)}")
+                    
                     # Prepare input data
-                    input_df = pd.DataFrame([user_inputs])
+                    input_df = pd.DataFrame([user_inputs_dict])
                     
                     # Add missing features with defaults
                     for feature in feature_names:
@@ -226,7 +268,7 @@ if model is not None:
                     st.info(f"""
                     💡 **Insights:**
                     - For comparison, Monaco GP: ~75-80s, Spa-Francorchamps: ~105-110s
-                    - Current position: P{user_inputs['position']} influences strategy
+                    - Current position: P{user_inputs_dict.get('position', 8)} influences strategy
                     - {selected_era} era technology affects performance
                     - Circuit difficulty: {circuit_difficulty_input}/100 (higher = more challenging)
                     - Season progress: {season_progress_input}% complete
@@ -234,6 +276,8 @@ if model is not None:
                     
                 except Exception as e:
                     st.error(f"Prediction error: {str(e)}")
+                    import traceback
+                    st.error(f"Full traceback: {traceback.format_exc()}")
     
     with col2:
         st.subheader("📊 Model Information")
