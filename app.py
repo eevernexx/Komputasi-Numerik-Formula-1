@@ -182,12 +182,6 @@ if model is not None:
                 time.sleep(1)  # Dramatic effect
                 
                 try:
-                    # Debug info
-                    st.write(f"Debug - user_inputs type: {type(user_inputs)}")
-                    st.write(f"Debug - circuit_difficulty: {circuit_difficulty_input}")
-                    st.write(f"Debug - season_progress: {season_progress_input}")
-                    st.write(f"Debug - selected_era: {selected_era}")
-                    
                     # Prepare input data
                     input_df = pd.DataFrame([user_inputs])
                     
@@ -219,16 +213,12 @@ if model is not None:
                     # Interpretation
                     if prediction < 80:
                         interpretation = "🚀 Very Fast Lap! (Street circuit or qualifying pace)"
-                        color = "green"
                     elif prediction < 100:
                         interpretation = "⚡ Fast Lap! (Typical modern F1 circuit)"
-                        color = "blue"
                     elif prediction < 120:
                         interpretation = "🏁 Normal Lap Time (Standard race pace)"
-                        color = "orange"
                     else:
                         interpretation = "🐌 Slow Lap (Long circuit or difficult conditions)"
-                        color = "red"
                     
                     st.markdown(f"**{interpretation}**")
                     
@@ -244,9 +234,6 @@ if model is not None:
                     
                 except Exception as e:
                     st.error(f"Prediction error: {str(e)}")
-                    st.error(f"Error type: {type(e)}")
-                    import traceback
-                    st.error(f"Traceback: {traceback.format_exc()}")
     
     with col2:
         st.subheader("📊 Model Information")
