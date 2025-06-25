@@ -253,19 +253,20 @@ if model is not None:
         st.write(f"• Training: {metadata['dataset_info']['training_samples']:,}")
         st.write(f"• Features: {metadata['feature_count']}")
         
-        # Quick examples
-        st.markdown("**⚡ Quick Examples:**")
+        # Quick examples info
+        st.markdown("**⚡ Quick Scenarios:**")
+        st.info("""
+        **🏆 Pole Position Setup:**
+        Position: 1, Experience: 10 years, Constructor Points: 20
         
-        example_scenarios = [
-            {"name": "🏆 Pole Position", "values": {"position": 1, "driver_experience": 10, "constructor_avg_points": 20}},
-            {"name": "🏁 Midfield Battle", "values": {"position": 8, "driver_experience": 3, "constructor_avg_points": 5}},
-            {"name": "🐌 Back Marker", "values": {"position": 18, "driver_experience": 1, "constructor_avg_points": 1}}
-        ]
+        **🏁 Midfield Battle:**
+        Position: 8, Experience: 3 years, Constructor Points: 5
         
-        for scenario in example_scenarios:
-            if st.button(scenario["name"], key=scenario["name"]):
-                st.session_state.update(scenario["values"])
-                st.experimental_rerun()
+        **🐌 Back Marker:**
+        Position: 18, Experience: 1 year, Constructor Points: 1
+        
+        💡 *Adjust the sliders manually to test these scenarios*
+        """)
 
     # ========================================
     # ADDITIONAL FEATURES
